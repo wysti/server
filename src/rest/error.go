@@ -13,7 +13,7 @@ func (re RestError) Error() string {
 type ErrorCode int
 
 const (
-	UNKNOWN = iota
+	UNKNOWN ErrorCode = iota
 	REQUEST_PARSE
 	JSON_MARSHALLING
 	INVALID_PARAMETER
