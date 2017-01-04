@@ -8,7 +8,7 @@ import (
 
 type RestHandler interface {
 	Handler(http.ResponseWriter, *http.Request)
-	ServeRest(params map[string]string) (interface{}, *RestError)
+	ServeRest(params map[string][]string) (interface{}, *RestError)
 	Context() string
 }
 
@@ -25,13 +25,18 @@ func NewRestHandlerBase(context string, rh RestHandler) *RestHandlerBase {
 }
 
 func (rhb *RestHandlerBase) Handler(rw http.ResponseWriter, r *http.Request) {
-	content, re := rhb.rh.ServeRest(nil)
-	if re != nil {
+	e0 := r.ParseForm()
+	if e0 != nil {
+		io.WriteString(rw, ErrorMessages[REQUEST_PARSE])
+		return
+	}
+	content, e1 := rhb.rh.ServeRest(r.Form)
+	if e1 != nil {
 		io.WriteString(rw, ErrorMessages[GENERIC_SERVER])
 		return
 	}
-	byteArr, err := json.Marshal(content)
-	if err != nil {
+	byteArr, e2 := json.Marshal(content)
+	if e2 != nil {
 		io.WriteString(rw, ErrorMessages[JSON_MARSHALLING])
 		return
 	}
