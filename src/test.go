@@ -18,7 +18,6 @@ func (w *Wysti) Login() rest.HandlerSpec {
 	var hs rest.HandlerSpec
 	hs.Context = "/login"
 	hs.ServeRest = func(map[string][]string) (interface{}, *rest.RestError) {
-		//var re RestError
 		testing := "123"
 		fmt.Println("?", testing)
 		return testing, nil
@@ -31,7 +30,6 @@ func (w *Wysti) GetArguments() rest.HandlerSpec {
 	var hs rest.HandlerSpec
 	hs.Context = "/getArgs"
 	hs.ServeRest = func(map[string][]string) (interface{}, *rest.RestError) {
-		//var re RestError
 		testing := "345"
 		fmt.Println("?", testing)
 		return testing, nil
@@ -44,7 +42,6 @@ func (w *Wysti) CreateWord() rest.HandlerSpec {
 	var hs rest.HandlerSpec
 	hs.Context = "/createWord"
 	hs.ServeRest = func(map[string][]string) (interface{}, *rest.RestError) {
-		//var re RestError
 		testing := [...]string{"678", "hwllo", "no", "hello"}
 		fmt.Println("?", testing)
 		return testing, nil
