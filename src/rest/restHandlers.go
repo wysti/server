@@ -46,7 +46,11 @@ func MuxHandler(hs HandlerSpec) HttpHandler {
 }
 
 /**
- * The methods of restAPI  should all effect MuxHandler, defined just above
+ * The methods of restAPI should all implement APIProvider, defined just above.
+ * APIProvider returns
+ * ** a HandlerSpec struct, which contains the http context on which the Handler will listen,
+ * ** a RestHandler, which MuxHandler uses to respond to HttpRequests.
+ * The idea is to isolate the API writer from HTTP specifics. (RestHandler takes in string parameters and returns an interface)
  */
 func AcceptRequests(restAPI interface{}) {
 	mux := http.NewServeMux()
